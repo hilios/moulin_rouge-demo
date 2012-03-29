@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Role do
   describe "database" do
-    it { should have_db_column(:name) }
+    it { should have_db_column(:name).of_type(:string) }
   end
   
   describe "relations" do

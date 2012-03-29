@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'simple_form'
 gem 'haml-rails'
+gem 'rdiscount'
 
 group :assets do
   gem 'less-rails-bootstrap'
