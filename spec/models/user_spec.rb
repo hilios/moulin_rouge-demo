@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   describe "database" do
-    it { should have_db_column(:email) }
+    it { should have_db_column(:username) }
     it { should have_db_column(:password_digest) }
   end
   
@@ -12,6 +12,6 @@ describe User do
   
   describe "validations" do
     subject { FactoryGirl.create(:user) }
-    it { should validate_uniqueness_of(:email) }
+    it { should validate_uniqueness_of(:username) }
   end
 end

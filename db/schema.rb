@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120329015903) do
   add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email"
+    t.string   "username"
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
