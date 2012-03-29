@@ -27,4 +27,13 @@ describe User do
       it { should validate_presence_of(:password) }
     end
   end
+  
+  describe "#is?" do
+    let(:role) { FactoryGirl.create(:role, :name  => :guest) }
+    let(:user) { FactoryGirl.create(:user, :roles => [role]) }
+    it "returns true if role relation exists and false otherwise" do
+      user.is?(:guest).should be_true
+      user.is?(:admin).should be_false
+    end
+  end
 end

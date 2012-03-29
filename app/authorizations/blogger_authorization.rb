@@ -1,0 +1,9 @@
+class BloggerAuthorization < MoulinRouge::Authorization
+  role :editor do
+    can :manage, [Post, Comment]
+  end
+  
+  role :author do
+    can :manage, Post, :user_id => current_user.id
+  end
+end

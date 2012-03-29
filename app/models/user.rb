@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   validates_presence_of     :username
   validates_uniqueness_of   :username
   validates_format_of       :username, :with => /^[\w\d_]+$/
+  
+  def is?(role)
+    roles.exists?(:name => role)
+  end
 end
