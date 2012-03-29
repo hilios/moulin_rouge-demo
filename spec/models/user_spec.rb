@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
   describe "database" do
+    it { should have_db_column(:name).of_type(:string) }
     it { should have_db_column(:username).of_type(:string) }
     it { should have_db_column(:password_digest).of_type(:string) }
   end
@@ -13,9 +14,13 @@ describe User do
   
   describe "validations" do
     subject { FactoryGirl.create(:user) }
+    it { should validate_presence_of(:name) }
+    it { should allow_value("foo_bar").for(:username) }
+    it { should_not allow_value("Foo Bar").for(:username) }
     it { should validate_presence_of(:username) }
     it { should validate_uniqueness_of(:username) }
     it { should_not allow_mass_assignment_of(:password_digest) }
+    it { should_not allow_value("different than confirmation").for(:password) }
     
     describe "on create" do
       subject { FactoryGirl.build(:user) }

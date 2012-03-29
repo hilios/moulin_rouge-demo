@@ -23,6 +23,7 @@ group :test do
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'shoulda-matchers'
+  gem 'forgery', '0.5.0'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
 end

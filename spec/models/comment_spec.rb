@@ -5,7 +5,7 @@ describe Comment do
     it { should have_db_column(:post_id).of_type(:integer) }
     it { should have_db_column(:from).of_type(:string) }
     it { should have_db_column(:message).of_type(:text) }
-    it { should have_db_column(:approved).of_type(:boolean) }
+    it { should have_db_column(:approved).of_type(:boolean).with_options(:default => false) }
     
     describe "indexes" do
       it { should have_db_index(:post_id) }

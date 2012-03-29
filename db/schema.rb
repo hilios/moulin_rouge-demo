@@ -17,9 +17,9 @@ ActiveRecord::Schema.define(:version => 20120329132520) do
     t.integer  "post_id"
     t.string   "from"
     t.text     "message"
-    t.boolean  "approved"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "approved",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(:version => 20120329132520) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.boolean  "approved",   :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20120329132520) do
   add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id"
 
   create_table "users", :force => true do |t|
+    t.string   "name"
     t.string   "username"
     t.string   "password_digest"
     t.datetime "created_at",      :null => false
