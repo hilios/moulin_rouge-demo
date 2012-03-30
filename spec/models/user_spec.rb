@@ -3,13 +3,23 @@ require 'spec_helper'
 describe User do
   describe "database" do
     it { should have_db_column(:name).of_type(:string) }
-    it { should have_db_column(:username).of_type(:string) }
-    it { should have_db_column(:password_digest).of_type(:string) }
+    it { should have_db_column(:role_id).of_type(:integer) }
+    # Devise
+    it { should have_db_column(:username).of_type(:string),with() }
+    it { should have_db_column(:encrypted_password).of_type(:string) }
+    
+    describe "indexes" do
+      it { should have_db_index(:role_id).unique(true) }
+      it { should have_db_index(:role_id) }
+    end
   end
   
   describe "relations" do
-    it { should have_and_belong_to_many(:roles) }
+    it { should belong_to(:role) }
     it { should have_many(:posts) }
+  end
+  
+  describe "security" do
   end
   
   describe "validations" do
@@ -21,6 +31,7 @@ describe User do
     it { should validate_uniqueness_of(:username) }
     it { should_not allow_mass_assignment_of(:password_digest) }
     it { should_not allow_value("different than confirmation").for(:password) }
+    it { should validate_presence_of(:role)}
     
     describe "on create" do
       subject { FactoryGirl.build(:user) }
@@ -29,8 +40,8 @@ describe User do
   end
   
   describe "#is?" do
-    let(:role) { FactoryGirl.create(:role, :name  => :guest) }
-    let(:user) { FactoryGirl.create(:user, :roles => [role]) }
+    let(:role) { FactoryGirl.create(:role, :name => :guest) }
+    let(:user) { FactoryGirl.create(:user, :role => role) }
     it "returns true if role relation exists and false otherwise" do
       user.is?(:guest).should be_true
       user.is?(:admin).should be_false

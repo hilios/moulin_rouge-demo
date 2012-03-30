@@ -4,7 +4,7 @@ class CreateComments < ActiveRecord::Migration
       t.references :post
       t.string :from
       t.text :message
-      t.boolean :approved, :default => false
+      t.boolean :is_approved, :default => false
 
       t.timestamps
     end

@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration
       t.references :user
       t.string :title
       t.text :body
-      t.boolean :approved, :default => false
+      t.boolean :is_approved, :default => false
 
       t.timestamps
     end

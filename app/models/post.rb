@@ -5,4 +5,9 @@ class Post < ActiveRecord::Base
   validates_presence_of :user
   validates_associated  :user
   validates_presence_of :title
+  
+  delegate :name, :to => :user, :prefix => true, :allow_nil => true
+  
+  attr_accessible :title, :body
+  attr_accessible :title, :body, :user, :approved, :as => [:admin, :editor]
 end

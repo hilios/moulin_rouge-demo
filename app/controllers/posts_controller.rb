@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  before_filter :build_comment
+  before_filter :authenticate_user!, :except => [:index, :show]
+  
   # GET /posts
   # GET /posts.json
   def index
@@ -79,5 +82,11 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  
+  def build_comment
+    @comment = Comment.new
   end
 end

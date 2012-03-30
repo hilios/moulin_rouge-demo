@@ -6,7 +6,7 @@ MoulinRouge.configure do |config|
   # Method name that will send to the user to test if the role is assigned to him
   config.test_method = :is?
   # Your user model
-  config.model = nil
+  config.model = User
   # The method name that will access the current user information
   config.model_instance = :current_user
 end

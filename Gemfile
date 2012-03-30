@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
 gem 'sqlite3'
+gem 'devise'
 gem 'moulin_rouge'
 gem 'jquery-rails'
 gem 'bcrypt-ruby', '~> 3.0.0'
@@ -10,6 +11,7 @@ gem 'haml-rails'
 gem 'rdiscount'
 
 group :assets do
+  gem 'less', '2.0.12'
   gem 'less-rails-bootstrap'
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -18,6 +20,7 @@ end
 
 group :test do
   gem 'cucumber-rails'
+  gem 'cucumber-websteps'
   gem 'capybara'
   gem 'rspec-rails'
   gem 'guard-rspec'

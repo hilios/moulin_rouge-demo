@@ -1,21 +1,26 @@
-%h1 Listing posts
+- if can? :manage, Post
+  %p.pull-right
+    = link_to 'New Post', new_post_path, :class => 'btn btn-primary'
 
-%table
-  %tr
-    %th Title
-    %th Body
-    %th
-    %th
-    %th
-
-  - @posts.each do |post|
-    %tr
-      %td= post.title
-      %td= post.body
-      %td= link_to 'Show', post
-      %td= link_to 'Edit', edit_post_path(post)
-      %td= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Post', new_post_path
+- @posts.each do |post|
+  .post
+    %h3= link_to post.title, post
+    - if can? :manage, post
+      .btn-group
+        %a.btn.dropdown-toggle{:'data-toggle' => "dropdown"}
+          Action
+          %span.caret
+        %ul.dropdown-menu
+          %li= link_to 'Edit', edit_post_path(post)
+          %li.divider
+          %li= link_to 'Destroy', post, :confirm => 'Are you sure?', :method => :delete
+    :markdown
+      #{post.body}
+    %small
+      = link_to post, :class => 'btn btn-mini' do
+        %i.icon-comment
+        = pluralize(post.comments.count, 'comment')
+      Posted by
+      %span.label= post.user_name
+      at
+      = post.created_at.strftime('%m/%d/%Y %H:%M')

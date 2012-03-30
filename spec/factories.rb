@@ -4,17 +4,18 @@ FactoryGirl.define do
     sequence(:username)   { |n| "username#{n}" }
     password              Forgery::Basic.password
     password_confirmation { password }
+    role
     
     factory :admin do
-      roles { [Role.find_or_create_by_name(:admin)] }
+      role Role.find_or_create_by_name(:admin)
     end
     
     factory :editor do
-      roles { [Role.find_or_create_by_name(:editor)] }
+      role Role.find_or_create_by_name(:editor)
     end
     
-    factory :author do
-      roles { [Role.find_or_create_by_name(:author)] }
+    factory :writer do
+      role Role.find_or_create_by_name(:writer)
     end
   end
   
@@ -25,7 +26,7 @@ FactoryGirl.define do
   factory :post do
     user
     title       Forgery::LoremIpsum.words(6, :random => 250)
-    body        Forgery::LoremIpsum.paragraphs(5)
+    body        Forgery::LoremIpsum.paragraphs(5, :random => 50)
     approved    true
     
     factory :unapproved_post do

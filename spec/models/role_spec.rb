@@ -8,7 +8,7 @@ describe Role do
   end
   
   describe "relations" do
-    it { should have_and_belong_to_many(:user) }
+    it { should have_many(:users) }
   end
   
   describe "validations" do
