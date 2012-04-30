@@ -30,7 +30,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(params[:user], as: current_user.role.to_sym)
     @user.save
     respond_with(@user)
   end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   # PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    @user.update_attributes(params[:user])
+    @user.update_attributes(params[:user], as: current_user.role.to_sym)
     respond_with(@user)
   end
 

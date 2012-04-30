@@ -1,10 +1,13 @@
 class PostsController < ApplicationController
   before_filter :build_comment
+
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
   
   # GET /posts
   # GET /posts.json
   def index
-    @posts = @search.result(:distinct => true)
+    @posts = @search.result(distinct: true)
+    @posts = @posts.approved if cannot? :manage, Post
     respond_with(@posts)
   end
 
@@ -12,6 +15,8 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
+    @comments = @post.approved if cannot? :manage, Comment
     respond_with(@post)
   end
 
@@ -31,7 +36,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(params[:post], as: current_user.role.to_sym)
     @post.save
     respond_with(@post)
   end
@@ -40,7 +45,7 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
-    @post.update_attributes(params[:post])
+    @post.update_attributes(params[:post], as: current_user.role.to_sym)
     respond_with(@post)
   end
 
