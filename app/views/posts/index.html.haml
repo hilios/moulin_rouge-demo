@@ -1,10 +1,15 @@
 - if can? :manage, Post
-  %p.pull-right
-    = link_to 'New Post', new_post_path, :class => 'btn btn-primary'
+  = "Hello #{current_user.name}!"
+  = link_to 'Create new Post', new_post_path, :class => 'btn btn-primary'
+  %br
+  %br
 
 - @posts.each do |post|
   .post
-    %h3= link_to post.title, post
+    %h3
+      - if can? :manage, post and not post.is_approved
+        %i.icon-eye-close
+      = link_to post.title, post
     :markdown
       #{post.body}
     %p.pull-right
@@ -23,3 +28,7 @@
       %span.label= post.user_name
       at
       = post.created_at.strftime('%m/%d/%Y %H:%M')
+
+- if @posts.empty?
+  %h6
+    No posts were found!

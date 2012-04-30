@@ -5,25 +5,25 @@
       title = "%s"
       title = yield(:title) if content_for?(:title)
     %title= title % "Moulin Rouge Demo"
-    = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "application", media: "all"
     = csrf_meta_tags
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          = link_to "Moulin Rouge", root_path, :class => :brand
+          = link_to "Moulin Rouge", root_path, class: :brand
           %ul.nav
-            %li{:class => activate_if(controller_is? :posts)}
+            %li{class: activate_if(controller_is? :posts)}
               = link_to posts_path do
                 %i.icon-list.icon-white
                 Posts
             - if can? :manage, User
-              %li
+              %li{class: activate_if(controller_is? :users)}
                 = link_to users_path do
                   %i.icon-user.icon-white
                   Users
             - if can? :manage, Role
-              %li
+              %li{class: activate_if(controller_is? :roles)}
                 = link_to roles_path do
                   %i.icon-tag.icon-white
                   Roles
@@ -38,12 +38,16 @@
                   %li
                     = link_to edit_user_path do
                       %i.icon-user
-                      Meus dados
+                      Your profile
+                  %li
+                    = link_to destroy_user_session_path, method: :delete do
+                      %i.icon-remove
+                      Sign out
             - else
               %li
                 = link_to "Sign in", new_user_session_path
-          = form_for :search, :html => {:class => "navbar-search pull-right", :method => :get} do |f|
-            = f.text_field :q, :class => "search-query span2", :placeholder => "Search"
+          = search_form_for @search, html: {class: "navbar-search pull-right", method: :get} do |f|
+            = f.text_field :body_cont, class: "search-query span2", placeholder: "Search"
     .container
       %header.page-header
         %h1
@@ -52,3 +56,4 @@
           %small This is an example application using the Moulin Rouge gem to manage CanCan authorization system.
       = yield
     = javascript_include_tag "application"
+    = yield :javascript

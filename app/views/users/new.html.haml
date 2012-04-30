@@ -1,5 +1,9 @@
-%h1 New user
-
-= render 'form'
-
-= link_to 'Back', users_path
+%fieldset
+  %legend
+    %p.pull-right
+      = link_to users_path, :class => 'btn' do
+        %i.icon-arrow-left
+        Back
+    %h2 New user
+  %br
+  = render 'form'

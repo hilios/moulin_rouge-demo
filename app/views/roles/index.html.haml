@@ -5,16 +5,29 @@
 
 %h2 Listing roles
 
-%table.table.table-bordered.table-striped
+%table.table.table-striped
   %thead
     %tr
       %th Name
-      %th{width: 120}
+      %th Users
+      %th{width: 130}
 
   - @roles.each do |role|
     %tr
       %td
+        - if MoulinRouge::Authorization.roles.index(role.to_sym).nil?
+          %i.icon-ban-circle
         %code= ":#{role.name}"
+      %td
+        %span{id: ['role', role.id]}
+          %i.icon-user
+          = "(#{role.users.count})"
+          - content_for :javascript do
+            :javascript
+              $('#role_#{role.id}').popover({
+                title: "Users assigned",
+                content: "#{role.users.map {|user| user.name}.join('<br/>')}"
+              });
       %td
         = link_to edit_role_path(role), class: 'btn btn-mini btn-primary' do
           %i.icon-pencil.icon-white

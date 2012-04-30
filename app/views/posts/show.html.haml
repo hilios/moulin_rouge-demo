@@ -3,7 +3,10 @@
     %i.icon-arrow-left
     Back
 .post
-  %h1= @post.title
+  %h1
+    - if can? :manage, @post and not @post.is_approved
+      %i.icon-eye-close
+    = @post.title
   :markdown
     #{@post.body}
   %p.pull-right
@@ -25,7 +28,7 @@
     %h4
       %i.icon-comment
       = pluralize(@post.comments.count, 'Comment')
-    - @post.comments.approved.each do |comment|
+    - @comments.each do |comment|
       .comment
         %b= comment.from
         %small= "(#{distance_of_time_in_words_to_now comment.created_at} ago)"

@@ -2,7 +2,7 @@
   = f.input :title, input_html: {class: 'span8'}
   - if current_user.is? :admin, :editor
     = f.association :user
-    = f.input :is_approved, as: :select
+    = f.input :is_approved, as: :radio
   = f.input :body,  input_html: {class: 'span8', rows: 20}
   .form-actions
     = f.submit :class => 'btn-primary'
