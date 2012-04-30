@@ -9,5 +9,8 @@ class Post < ActiveRecord::Base
   delegate :name, :to => :user, :prefix => true, :allow_nil => true
   
   attr_accessible :title, :body
-  attr_accessible :title, :body, :user, :approved, :as => [:admin, :editor]
+  attr_accessible :title, :body, :user_id, :is_approved, 
+    :as => :admin
+
+  scope :approved, where('is_approved = ?', true)
 end
