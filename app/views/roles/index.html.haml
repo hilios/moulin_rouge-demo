@@ -1,19 +1,24 @@
-%h1 Listing roles
+%p.pull-right
+  = link_to new_role_path, class: 'btn btn-primary' do
+    %i.icon-plus.icon-white
+    New Role
 
-%table
-  %tr
-    %th Name
-    %th
-    %th
-    %th
+%h2 Listing roles
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Name
+      %th{width: 120}
 
   - @roles.each do |role|
     %tr
-      %td= role.name
-      %td= link_to 'Show', role
-      %td= link_to 'Edit', edit_role_path(role)
-      %td= link_to 'Destroy', role, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Role', new_role_path
+      %td
+        %code= ":#{role.name}"
+      %td
+        = link_to edit_role_path(role), class: 'btn btn-mini btn-primary' do
+          %i.icon-pencil.icon-white
+          Edit
+        = link_to role, confirm: 'Are you sure?', method: :delete, class: 'btn btn-mini btn-danger' do
+          %i.icon-trash.icon-white
+          Destroy

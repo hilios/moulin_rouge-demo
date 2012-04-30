@@ -1,10 +1,13 @@
 class User < ActiveRecord::Base
-  devise :database_authenticatable
+  devise :database_authenticatable, :rememberable
 
   belongs_to :role
   has_many :posts
   
-  attr_accessible :name, :username, :password, :password_confirmation, :role
+  attr_accessible :name, :username, :password, :password_confirmation, :remember_me
+  
+  attr_accessible :name, :username, :password, :password_confirmation, :remember_me, :role_id#,
+    # as: :admin
   
   validates_presence_of     :name
   validates_format_of       :username, :with => /^[\w\d_]+$/
@@ -13,7 +16,7 @@ class User < ActiveRecord::Base
   
   delegate :name, :to => :role, :prefix => true, :allow_nil => true
   
-  def is?(role)
-    role_name == role if self.role
+  def is?(*roles)
+    not roles.index(role.to_sym).nil? if role
   end
 end

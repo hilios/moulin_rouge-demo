@@ -1,0 +1,6 @@
+= simple_form_for resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal'} do |f|  
+  = f.input :username, :hint => "Try one: admin, editor, writer"
+  = f.input :password, :hint => "abc1234"
+  = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
+  .form-actions
+    = f.submit :class => 'btn-primary', :value => 'Sign In'

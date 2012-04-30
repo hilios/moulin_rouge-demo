@@ -1,16 +1,8 @@
-= form_for @post do |f|
-  -if @post.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@post.errors.count, "error")} prohibited this post from being saved:"
-      %ul
-        - @post.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.label :body
-    = f.text_area :body
-  .actions
-    = f.submit 'Save'
+= simple_form_for @post, :html => {class: 'form-horizontal'} do |f|
+  = f.input :title, input_html: {class: 'span8'}
+  - if current_user.is? :admin, :editor
+    = f.association :user
+    = f.input :is_approved, as: :select
+  = f.input :body,  input_html: {class: 'span8', rows: 20}
+  .form-actions
+    = f.submit :class => 'btn-primary'

@@ -4,17 +4,16 @@
     Back
 .post
   %h1= @post.title
-  - if can? :manage, @post
-    .btn-group
-      %a.btn.dropdown-toggle{:'data-toggle' => "dropdown"}
-        Action
-        %span.caret
-      %ul.dropdown-menu
-        %li= link_to 'Edit', edit_post_path(@post)
-        %li.divider
-        %li= link_to 'Destroy', @post, :confirm => 'Are you sure?', :method => :delete
   :markdown
     #{@post.body}
+  %p.pull-right
+    - if can? :manage, @post
+      = link_to edit_post_path(@post), class: 'btn btn-mini btn-primary' do
+        %i.icon-pencil.icon-white
+        Edit
+      = link_to @post, confirm: 'Are you sure?', method: :delete, class: 'btn btn-mini btn-danger' do
+        %i.icon-trash.icon-white
+        Destroy
   %small
     Posted by
     %span.label= @post.user_name
@@ -26,7 +25,7 @@
     %h4
       %i.icon-comment
       = pluralize(@post.comments.count, 'Comment')
-    - @post.comments.already_approved.each do |comment|
+    - @post.comments.approved.each do |comment|
       .comment
         %b= comment.from
         %small= "(#{distance_of_time_in_words_to_now comment.created_at} ago)"

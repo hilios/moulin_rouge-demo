@@ -11,15 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120329132520) do
+ActiveRecord::Schema.define(:version => 20120329205534) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id"
     t.string   "from"
     t.text     "message"
-    t.boolean  "approved",   :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_approved", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(:version => 20120329132520) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
-    t.boolean  "approved",   :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "is_approved", :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
@@ -41,13 +41,14 @@ ActiveRecord::Schema.define(:version => 20120329132520) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.string   "username"
-    t.string   "password_digest"
     t.integer  "role_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.string   "username",           :default => "", :null => false
+    t.string   "encrypted_password", :default => "", :null => false
   end
 
   add_index "users", ["role_id"], :name => "index_users_on_role_id"
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

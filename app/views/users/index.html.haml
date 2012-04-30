@@ -1,21 +1,21 @@
-%h1 Listing users
 
-%table
-  %tr
-    %th Email
-    %th Password digest
-    %th
-    %th
-    %th
+%h2 Listing users
+
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Username
+      %th{width: 120}
 
   - @users.each do |user|
     %tr
-      %td= user.email
-      %td= user.password_digest
-      %td= link_to 'Show', user
-      %td= link_to 'Edit', edit_user_path(user)
-      %td= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New User', new_user_path
+      %td= user.name
+      %td= user.username
+      %td
+        = link_to edit_user_path(user), class: 'btn btn-mini btn-primary' do
+          %i.icon-pencil.icon-white
+          Edit
+        = link_to user, confirm: 'Are you sure?', method: :delete, class: 'btn btn-mini btn-danger' do
+          %i.icon-trash.icon-white
+          Destroy

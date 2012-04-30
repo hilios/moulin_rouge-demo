@@ -9,6 +9,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'simple_form'
 gem 'haml-rails'
 gem 'rdiscount'
+# gem 'responders'
 
 group :assets do
   gem 'less', '2.0.12'

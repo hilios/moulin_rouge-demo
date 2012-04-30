@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :get_id_from_current_user
   # GET /users
   # GET /users.json
   def index
@@ -79,5 +80,11 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+  
+  private
+  
+  def get_id_from_current_user
+    params[:id] = current_user.id unless params.has_key? :id
   end
 end

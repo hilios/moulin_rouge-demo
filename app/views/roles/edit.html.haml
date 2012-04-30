@@ -1,7 +1,9 @@
-%h1 Editing role
-
-= render 'form'
-
-= link_to 'Show', @role
-\|
-= link_to 'Back', roles_path
+%fieldset
+  %legend
+    %p.pull-right
+      = link_to roles_path, :class => 'btn' do
+        %i.icon-arrow-left
+        Back
+    %h2 Editing role
+  %br
+  = render 'form'

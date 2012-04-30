@@ -1,12 +1,12 @@
 MoulinRougeDemo::Application.routes.draw do  
   devise_for :users
-
-  resources :session, :only => [:new, :create, :destroy]
-  resources :roles
-  resources :users
+  
+  resource  :user
+  resources :users, :except => [:show]
+  resources :roles, :except => [:show]
   
   resources :posts do
-    resources :comments
+    resources :comments, :except => [:show]
   end
   
   root :to => 'posts#index'
