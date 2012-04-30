@@ -1,4 +1,4 @@
 = simple_form_for @role, :html => {:class => 'form-horizontal'} do |f|
-  = f.input :name
+  = f.input :name, as: :select, collection: Role.avaliable_roles, include_blank: (if Role.avaliable_roles.empty? then 'No role avaliable' else 'Select one' end)
   .form-actions
     = f.submit :class => 'btn-primary'

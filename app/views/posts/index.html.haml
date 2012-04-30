@@ -1,6 +1,7 @@
 - if can? :manage, Post
-  = "Hello #{current_user.name}!"
-  = link_to 'Create new Post', new_post_path, :class => 'btn btn-primary'
+  = link_to new_post_path, :class => 'btn btn-primary btn-large' do
+    %i.icon-plus.icon-white
+    Create new Post
   %br
   %br
 

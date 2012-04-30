@@ -1,0 +1,13 @@
+- flash.keys.each do |type|
+  :ruby 
+    class_name = case type
+    when :notice  then 'alert-success'
+    when :info    then 'alert-info'
+    when :error   then 'alert-error'
+    else nil
+    end
+  - if only.nil? or only == type
+    - unless flash[type].nil?
+      %div.alert{:class => class_name}
+        %a.close{:'data-dismiss' => "alert"} &times;
+        = flash[type]

@@ -8,4 +8,8 @@ class Role < ActiveRecord::Base
   def to_sym
     name.to_sym if name
   end
+
+  def self.avaliable_roles
+    MoulinRouge::Authorization.roles.reject { |role| Role.find_by_name(role) }
+  end
 end
